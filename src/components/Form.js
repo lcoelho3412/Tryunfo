@@ -1,29 +1,7 @@
 import React from 'react';
-/* import PropTypes from 'prop-types'; */
+import PropTypes from 'prop-types';
 
 class Form extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
-      cardImage: '',
-      cardRare: false,
-      cardTrunfo: false,
-    };
-  }
-
-  onInputChange = ({ target }) => {
-    const { name, type } = target;
-    const value = type === 'checkbox' ? target.checked : target.value;
-    this.setState({
-      [name]: value,
-    });
-  }
-
   render() {
     const {
       cardName,
@@ -38,9 +16,9 @@ class Form extends React.Component {
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
-    } = this.state;
+    } = this.props;
     return (
-      <form className="new-athlete-card" onSubmit={ () => {} }>
+      <form className="new-athlete-card" onSubmit={ onSaveButtonClick }>
         <div>
           <label htmlFor="name-area" className="name-input-area">
             Nome da carta
@@ -52,7 +30,7 @@ class Form extends React.Component {
               placeholder="Athlete name"
               maxLength="32"
               value={ cardName }
-              onChange={ this.onInputChange }
+              onChange={ onInputChange }
             />
           </label>
         </div>
@@ -67,7 +45,7 @@ class Form extends React.Component {
               placeholder="Athlete description"
               maxLength="32"
               value={ cardDescription }
-              onChange={ this.onInputChange }
+              onChange={ onInputChange }
             />
           </label>
         </div>
@@ -82,7 +60,7 @@ class Form extends React.Component {
               min="0"
               max="100"
               value={ cardAttr1 }
-              onChange={ this.onInputChange }
+              onChange={ onInputChange }
             />
           </label>
           <label htmlFor="attr2-area" className="attr2-input-area">
@@ -95,7 +73,7 @@ class Form extends React.Component {
               min="0"
               max="100"
               value={ cardAttr2 }
-              onChange={ this.onInputChange }
+              onChange={ onInputChange }
             />
           </label>
           <label htmlFor="attr3-area" className="attr3-input-area">
@@ -108,7 +86,7 @@ class Form extends React.Component {
               min="0"
               max="100"
               value={ cardAttr3 }
-              onChange={ this.onInputChange }
+              onChange={ onInputChange }
             />
           </label>
         </div>
@@ -119,7 +97,7 @@ class Form extends React.Component {
               name="cardImage"
               data-testid="image-input"
               value={ cardImage }
-              onChange={ this.onInputChange }
+              onChange={ onInputChange }
             />
           </label>
         </div>
@@ -147,7 +125,7 @@ class Form extends React.Component {
               id="trunfo"
               data-testid="trunfo-input"
               checked={ cardTrunfo }
-              onChange={ this.onInputChange }
+              onChange={ onInputChange }
             />
           </label>
         </div>
@@ -156,7 +134,6 @@ class Form extends React.Component {
             type="submit"
             data-testid="save-button"
             disabled={ isSaveButtonDisabled }
-            onChange={ onSaveButtonClick }
           >
             Save
           </button>
@@ -165,7 +142,7 @@ class Form extends React.Component {
     );
   }
 }
-/* Form.propTypes = {
+Form.propTypes = {
   cardName: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
   cardAttr1: PropTypes.string.isRequired,
@@ -174,10 +151,10 @@ class Form extends React.Component {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  hasTrunfo: PropTypes.bool.isRequired,
-  isSaveButtonDisabled: PropTypes.func.isRequired,
+  /*  hasTrunfo: PropTypes.bool.isRequired, */
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
-}; */
+};
 
 export default Form;

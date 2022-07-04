@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 class Card extends React.Component {
   render() {
+    console.log(this.props);
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo } = this.props;
     return (
