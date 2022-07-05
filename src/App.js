@@ -53,7 +53,7 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
-      cards: [newCard, ...prevState.cards],
+      cards: [...prevState.cards, newCard],
     }));
   };
 
