@@ -123,19 +123,27 @@ class App extends React.Component {
         />
         <div className="container">
           <section className="Card__content">
-            <ul>
-              {cards.map((card) => (<Card
-                cardName={ card.cardName }
-                cardDescription={ card.cardDescription }
-                cardAttr1={ card.cardAttr1 }
-                cardAttr2={ card.cardAttr2 }
-                cardAttr3={ card.cardAttr3 }
-                cardImage={ card.cardImage }
-                cardRare={ card.cardRare }
-                cardTrunfo={ card.cardTrunfo }
-                key={ card.cardName }
-              />))}
-            </ul>
+            {cards.map((card) => (
+              <>
+                <Card
+                  key={ card.cardName }
+                  cardName={ card.cardName }
+                  cardDescription={ card.cardDescription }
+                  cardAttr1={ card.cardAttr1 }
+                  cardAttr2={ card.cardAttr2 }
+                  cardAttr3={ card.cardAttr3 }
+                  cardImage={ card.cardImage }
+                  cardRare={ card.cardRare }
+                  cardTrunfo={ card.cardTrunfo }
+                />
+                <button
+                  type="submit"
+                  data-testid="delete-button"
+                >
+                  Excluir
+                </button>
+              </>
+            ))}
           </section>
         </div>
       </div>
