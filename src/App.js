@@ -67,10 +67,6 @@ class App extends React.Component {
     const minIndividualAttr = (Number(cardAttr1) >= minAttr
       && Number(cardAttr2) >= minAttr
        && Number(cardAttr3) >= minAttr);
-    console.log(stringCheck);
-    console.log(numberCheck);
-    console.log(maxIndividualAttr);
-    console.log(Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3));
     return !(stringCheck && numberCheck && maxIndividualAttr && minIndividualAttr);
   }
 
@@ -102,6 +98,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ this.isSaveButtonDisabled() }
+          hasTrunfo={ cards.some(({ cardTrunfo: trunfo }) => trunfo === true) }
         />
         <Card
           cardName={ cardName }
