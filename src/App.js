@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import './components/index.css';
 
 class App extends React.Component {
   constructor() {
@@ -14,6 +15,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
+      hasTrunfo: false,
       cards: [],
     };
   }
@@ -26,23 +28,33 @@ class App extends React.Component {
     });
   };
 
-  addNewCard = (card) => {
+  onSaveButtonClick = (e) => {
+    e.preventDefault();
+    const { cardName, cardDescription, cardAttr1,
+      cardAttr2, cardAttr3, cardImage, cardRare,
+      cardTrunfo, hasTrunfo } = this.state;
+    const newCard = { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      hasTrunfo,
+    };
     this.setState((prevState) => ({
-      cards: [...prevState.cards, card],
       cardName: '',
       cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
       cardImage: '',
-      cardRare: false,
+      cardRare: '',
       cardTrunfo: false,
+      hasTrunfo: false,
+      cards: [newCard, ...prevState.cards],
     }));
-  };
-
-  onSaveButtonClick = (event) => {
-    event.preventDefault();
-    this.addNewCard(this.state);
   };
 
   isSaveButtonDisabled = () => {
@@ -73,8 +85,8 @@ class App extends React.Component {
   render() {
     const {
       cardName,
-      cardImage,
       cardDescription,
+      cardImage,
       cardAttr1,
       cardAttr2,
       cardAttr3,
@@ -82,13 +94,10 @@ class App extends React.Component {
       cardTrunfo,
       cards,
     } = this.state;
-
     return (
       <div>
         <h1>Tryunfo</h1>
         <Form
-          onSaveButtonClick={ this.onSaveButtonClick }
-          onInputChange={ this.onInputChange }
           cardName={ cardName }
           cardDescription={ cardDescription }
           cardAttr1={ cardAttr1 }
@@ -99,6 +108,8 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ this.isSaveButtonDisabled() }
           hasTrunfo={ cards.some(({ cardTrunfo: trunfo }) => trunfo === true) }
+          onSaveButtonClick={ this.onSaveButtonClick }
+          onInputChange={ this.onInputChange }
         />
         <Card
           cardName={ cardName }
@@ -111,13 +122,21 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         <div className="container">
-          {cards.map((card) => (
-            <div className="Card__content" key={ card.cardName }>
-              {card.cardName}
-              <p>{`Sprinter ${card.cardAttr1}`}</p>
-              <img src={ card.cardImage } alt="" width={ 100 } />
-            </div>
-          ))}
+          <section className="Card__content">
+            <ul>
+              {cards.map((card) => (<Card
+                cardName={ card.cardName }
+                cardDescription={ card.cardDescription }
+                cardAttr1={ card.cardAttr1 }
+                cardAttr2={ card.cardAttr2 }
+                cardAttr3={ card.cardAttr3 }
+                cardImage={ card.cardImage }
+                cardRare={ card.cardRare }
+                cardTrunfo={ card.cardTrunfo }
+                key={ card.cardName }
+              />))}
+            </ul>
+          </section>
         </div>
       </div>
     );

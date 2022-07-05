@@ -43,7 +43,7 @@ class Form extends React.Component {
               id="description-input"
               data-testid="description-input"
               placeholder="Athlete description"
-              maxLength="32"
+              maxLength="100"
               value={ cardDescription }
               onChange={ onInputChange }
             />
