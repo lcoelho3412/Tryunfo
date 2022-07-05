@@ -48,6 +48,7 @@ class App extends React.Component {
   isSaveButtonDisabled = () => {
     const maxTotalAttr = 210;
     const maxAttr = 90;
+    const minAttr = 0;
     const {
       cardName,
       cardImage,
@@ -56,14 +57,21 @@ class App extends React.Component {
       cardAttr2,
       cardAttr3,
     } = this.state;
-    const stringCheck = !(cardName && cardImage && cardDescription);
-    const numberCheck = (parseInt(cardAttr1, 10)
-     + parseInt(cardAttr2, 10)
-      + parseInt(cardAttr3, 10) !== maxTotalAttr);
-    const maxIndividualAttr = !(parseInt(cardAttr1, 10)
-      && parseInt(cardAttr2, 10)
-       && parseInt(cardAttr3, 10) === maxAttr);
-    return (stringCheck && numberCheck && maxIndividualAttr);
+    const stringCheck = (cardName && cardImage && cardDescription);
+    const numberCheck = (Number(cardAttr1)
+     + Number(cardAttr2)
+      + Number(cardAttr3) <= maxTotalAttr);
+    const maxIndividualAttr = (Number(cardAttr1) <= maxAttr
+      && Number(cardAttr2) <= maxAttr
+       && Number(cardAttr3) <= maxAttr);
+    const minIndividualAttr = (Number(cardAttr1) >= minAttr
+      && Number(cardAttr2) >= minAttr
+       && Number(cardAttr3) >= minAttr);
+    console.log(stringCheck);
+    console.log(numberCheck);
+    console.log(maxIndividualAttr);
+    console.log(Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3));
+    return !(stringCheck && numberCheck && maxIndividualAttr && minIndividualAttr);
   }
 
   render() {
