@@ -82,6 +82,13 @@ class App extends React.Component {
     return !(stringCheck && numberCheck && maxIndividualAttr && minIndividualAttr);
   }
 
+  cardDeleter = ({ target }) => {
+    const { cards } = this.state;
+    this.setState({
+      cards: cards.filter(({ cardName }) => cardName !== target.id),
+    });
+  }
+
   render() {
     const {
       cardName,
@@ -124,9 +131,8 @@ class App extends React.Component {
         <div className="container">
           <section className="Card__content">
             {cards.map((card) => (
-              <>
+              <div key={ card.cardName }>
                 <Card
-                  key={ card.cardName }
                   cardName={ card.cardName }
                   cardDescription={ card.cardDescription }
                   cardAttr1={ card.cardAttr1 }
@@ -137,12 +143,14 @@ class App extends React.Component {
                   cardTrunfo={ card.cardTrunfo }
                 />
                 <button
-                  type="submit"
+                  type="button"
                   data-testid="delete-button"
+                  id={ card.cardName }
+                  onClick={ this.cardDeleter }
                 >
                   Excluir
                 </button>
-              </>
+              </div>
             ))}
           </section>
         </div>
