@@ -17,6 +17,7 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick,
       cardNameFilter,
+      cardTrunfoFilter,
     } = this.props;
 
     return (
@@ -147,6 +148,7 @@ class Form extends React.Component {
           type="text"
           data-testid="name-filter"
           placeholder="Search by name"
+          disabled={ cardTrunfoFilter }
           onChange={ (e) => cardNameFilter(e.target.value) }
         />
       </div>
@@ -167,6 +169,7 @@ Form.propTypes = {
   onSaveButtonClick: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
   cardNameFilter: PropTypes.func.isRequired,
+  cardTrunfoFilter: PropTypes.bool.isRequired,
 };
 
 export default Form;

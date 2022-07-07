@@ -16,6 +16,7 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
+      cardTrunfoFilter: false,
       cards: [],
       allCards: [],
     };
@@ -96,8 +97,25 @@ class App extends React.Component {
    this.setState({ cards: filterCard });
  }
 
+ onCheckboxChange = () => {
+   const { cardTrunfoFilter, allCards } = this.state;
+   console.log(allCards);
+   this.setState({ cardTrunfoFilter: !cardTrunfoFilter }, () => {
+     if (!cardTrunfoFilter) {
+       const findTrunfo = allCards.find(({ cardTrunfo }) => cardTrunfo === true);
+       console.log(findTrunfo);
+       if (findTrunfo) return this.setState({ cards: [findTrunfo] });
+     }
+     return this.setState({ cards: allCards });
+   });
+ }
+
  render() {
-   const { cards } = this.state;
+   const {
+     cards,
+     allCards,
+     cardTrunfoFilter,
+   } = this.state;
 
    return (
      <div>
@@ -105,7 +123,7 @@ class App extends React.Component {
        <Form
          { ...this.state }
          isSaveButtonDisabled={ this.isSaveButtonDisabled() }
-         hasTrunfo={ cards.some(({ cardTrunfo: trunfo }) => trunfo === true) }
+         hasTrunfo={ allCards.some(({ cardTrunfo: trunfo }) => trunfo === true) }
          onSaveButtonClick={ this.onSaveButtonClick }
          onInputChange={ this.onInputChange }
          cardNameFilter={ this.cardNameFilter }
@@ -136,6 +154,32 @@ class App extends React.Component {
              </div>
            ))}
          </section>
+         <label htmlFor="checkboxTrunfoFilter">
+           <input
+             type="checkbox"
+             data-testid="trunfo-filter"
+             id="checkboxTrunfoFilter"
+             name="cardTrunfoFilter"
+             checked={ cardTrunfoFilter }
+             onChange={ this.onCheckboxChange }
+           />
+           {' '}
+           Super trunfo Filter
+         </label>
+         <br />
+         <label htmlFor="rarity">
+           Rarity Filter
+           <select
+             name="cardRare"
+             data-testid="rare-filter"
+             disabled={ cardTrunfoFilter }
+           >
+             <option>normal</option>
+             <option>raro</option>
+             <option>muito raro</option>
+           </select>
+         </label>
+
        </div>
      </div>
    );
